@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div>
+                <div class="card text-center">
+                    <h1>{{ Sevent.name }}</h1>
+                    <p>Number of reservations left : {{ Sevent.NumRemaining }}</p>
+                    <p>{{ Sevent.Date | date }}</p>
+                    <a href="{{ path('sevent_admin') }}" class="btn btn-dark">Go Back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

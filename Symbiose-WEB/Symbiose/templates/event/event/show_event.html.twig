@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div>
+                <div class="card text-center">
+                    <h1>{{ event.name }}</h1>
+                    <h3>{{ event.supplier }}</h3>
+                    <p>Number of reservations left : {{ event.NumRemaining }}</p>
+                    <p>{{ event.Date | date }}</p>
+                    <a href="{{ path('event_list') }}" class="btn btn-dark">Go Back</a>
+                    <a href="{{ path('join_event',{'id':event.id}) }}" class="btn btn-warning btn-outline-dark">
+                        Join This Event
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,276 @@
+{% block body %}
+<head>
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+            rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+            rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css"
+            rel="stylesheet"
+    />
+
+    <link
+            href="http://localhost/pidev/style.css"
+            rel="stylesheet"
+    />
+
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js">
+    </script>
+</head>
+    <style>
+        body {
+            background-color: #fbfbfb;
+        }
+        @media (min-width: 991.98px) {
+            main {
+                padding-left: 240px;
+            }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            padding: 58px 0 0; /* Height of navbar */
+            box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+            width: 240px;
+            z-index: 600;
+        }
+
+        @media (max-width: 991.98px) {
+            .sidebar {
+                width: 100%;
+            }
+        }
+        .sidebar .active {
+            border-radius: 5px;
+            box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+        }
+
+        .sidebar-sticky {
+            position: relative;
+            top: 0;
+            height: calc(100vh - 48px);
+            padding-top: 0.5rem;
+            overflow-x: hidden;
+            overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        }
+    </style>
+    <nav
+            id="sidebarMenu"
+            class="collapse d-lg-block sidebar collapse bg-white"
+    >
+        <div class="position-sticky">
+            <div class="list-group list-group-flush mx-3 mt-4">
+                <a
+                        href="#"
+                        class="list-group-item list-group-item-action py-2 ripple active"
+                        aria-current="true"
+                >
+                    <i class="fas fa-calendar-alt fa-fw me-3"></i
+                    ><span>Events</span>
+                </a>
+                <a
+                        href="{{ path('sevent_admin') }}"
+                        class="list-group-item list-group-item-action py-2 ripple"
+                >
+                    <i class="fas fa-calendar-alt fa-fw me-3"></i
+                    ><span>Special events</span>
+                </a>
+                <a
+                        href="{{ path('invalid_event') }}"
+                        class="list-group-item list-group-item-action py-2 ripple"
+                >
+                    <i class="fas fa-calendar-alt fa-fw me-3"></i
+                    ><span>Confirm events</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <!-- Sidebar -->
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+    <div class="container-fluid">
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="{{ path('event-welcome') }}">
+            <img
+                    src="http://localhost/pidev/logo-mrigel-sghir.jpg"
+                    height="25"
+                    alt=""
+                    loading="lazy"
+            />
+            <strong class="text-dark">Symbiose</strong>
+        </a>
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbarExample01"
+                aria-controls="navbarExample01"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+        >
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarExample01">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            </ul>
+        </div>
+    </div>
+    </nav>
+    <!-- Navbar -->
+
+    <main style="margin-top: 58px">
+    <div class="container pt-4">
+
+        <!--Section: Minimal statistics cards-->
+
+        <section>
+            <div class="row">
+                <div class="col-xl-6 col-md-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between px-md-1">
+                                <div>
+                                    <h3 class="text-success">10</h3>
+                                    <p class="mb-0">Number of events</p>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="far fa-calendar-alt text-success fa-3x"></i>
+                                </div>
+
+                            </div>
+                            <div class="px-md-1">
+                                <div class="progress mt-3 mb-1 rounded" style="height: 7px">
+                                    <div
+                                            class="progress-bar bg-success"
+                                            role="progressbar"
+                                            style="width: 50%"
+                                            aria-valuenow="10"
+                                            aria-valuemin="0"
+                                            aria-valuemax="200"
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between px-md-1">
+                                <div>
+                                    <h3 class="text-warning">5</h3>
+                                    <p class="mb-0">Number of special events</p>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="far fa-calendar text-warning fa-3x"></i>
+                                </div>
+
+                            </div>
+                            <div class="px-md-1">
+                                <div class="progress mt-3 mb-1 rounded" style="height: 7px">
+                                    <div
+                                            class="progress-bar bg-warning"
+                                            role="progressbar"
+                                            style="width: 50%"
+                                            aria-valuenow="5"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--Section: Minimal statistics cards-->
+
+        <!--Section: Manage All Events-->
+        <section class="mb-4">
+            <div class="card">
+                <div class="card-header text-center py-3">
+                    <h5 class="mb-0 text-center">
+                        <strong>Manage All Events</strong>
+                    </h5>
+                </div>
+                <a class="btn btn-outline-dark " aria-current="page" href="{{ path('add_event') }}" >Add Event</a>
+                <div class="card-body">
+
+                    <div class="table-responsive">
+                        {% if events %}
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Supplier</th>
+                                <th scope="col">Players</th>
+                                <th scope="col">Remaining</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Date</th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for event in events %}
+                                <tr>
+                                    <td>{{ event.name }}</td>
+                                    <td>{{ event.supplier }}</td>
+                                    <td>{{ event.NumParticipants }}</td>
+                                    <td>{{ event.NumRemaining }}</td>
+                                    <td>{{ event.type }}</td>
+                                    <td>{{ event.date|date }}</td>
+                                    <td>
+                                        <a href="{{ path('eventadmin_show',{'id':event.id}) }}" class="btn btn-dark">
+                                            Show
+                                        </a>
+
+
+                                        <a href="{{ path('edit_event',{'id':event.id}) }}" class="btn btn-light">
+                                            Edit
+                                        </a>
+
+                                        <a href="{{ path('cancel_event',{'id':event.id}) }}" class="btn btn-danger">
+                                            cancel
+                                        </a>
+
+
+                                        <a href="{{ path('delete_event',{'id':event.id}) }}" class="btn btn-outline-danger" onclick="return confirm('Are you sure ?')">
+                                            Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        {% else %}
+                            <p>No events yet !</p>
+                        {% endif %}
+
+                    </div>
+                    {# display navigation #}
+                    <div class="navigation">
+                        {{ knp_pagination_render(events) }}
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+        <!--Section: Manage All Events-->
+
+    </div>
+    </main>
+{% endblock %}
+

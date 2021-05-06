@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Form\AccountType;
 use App\Form\PasswordUpdateType;
 use App\Form\RegistrationType;
+use App\Repository\UserRepository;
 use App\Services\SendEmail;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -16,6 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,6 +26,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class AccountController extends AbstractController
 {
@@ -43,6 +49,39 @@ class AccountController extends AbstractController
             'hasError' => $error !== null,
             'username' => $username
         ]);
+
+    }
+
+    /**
+     * @Route("/LoginJSON" , name="login_json")
+     * @param Request $request
+     * @param UserRepository $repository
+     * @return Response
+     * @throws ExceptionInterface
+     */
+    public function login_json(Request $request,UserRepository $repository){
+        $email = $request->query->get('email');
+
+        $hash = $request->query->get('hash');
+
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository(User::class)->findOneBy(['Email' => $email]);
+        dump($user);
+        if($user==null) {
+
+        }
+        if ($user) {
+            if (password_verify($hash, $user->getHash())) {
+                $serializer = new Serializer([new ObjectNormalizer()]);
+                $formatted = $serializer->normalize($user,'json',['groups'=>'post:read']);
+                return new JsonResponse($formatted);
+            } else {
+                return new Response("failed");
+            }
+        } else {
+            return new Response("failed");
+        }
     }
 
     /**
@@ -223,6 +262,15 @@ class AccountController extends AbstractController
         return (new \DateTimeImmutable('now')> $getAccountMustBeVerifiedBefore);
     }
 
+    /**
+     * @Route("/Affichertous")
+     */
+    public function getAll(UserRepository  $repository,SerializerInterface $serializer){
+        $user=$repository->findAll();
+        $json=$serializer->serialize($user,'json',['groups'=>'post:read']);
+        dump($json);
+        die();
+    }
 
 
 }

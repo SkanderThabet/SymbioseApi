@@ -6,6 +6,7 @@ use App\Repository\LobbyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -51,6 +52,7 @@ class Lobby
 
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="lobby")
+     * @Groups("post:read")
      */
     private $users;
 

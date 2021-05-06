@@ -10,6 +10,8 @@ use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
+use Faker\Provider\DateTime;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -68,7 +70,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(min="8",minMessage="Votre mot de passe doit faire au moins 8 caracteres ! ")
-     *
+     * @Groups("post:read")
      */
     private ?string $hash;
     /**
@@ -90,6 +92,7 @@ class User implements UserInterface
     private ?\DateTimeInterface $Birthday;
 
     /**
+     * @Groups("post:read")
      * @ORM\Column(type="string", length=255)
      */
     private ?string $slug;
@@ -115,12 +118,14 @@ class User implements UserInterface
     private $Phone_Number;
 
     /**
+     * @Groups("post:read")
      * @ORM\ManyToMany(targetEntity="App\Entity\Role",mappedBy="users")
      */
     private $userRoles;
 
 
     /**
+     * @Groups("post:read")
      * @ORM\Column(type="datetime_immutable")
      */
     private ?\DateTimeImmutable $registeredAt;
@@ -136,7 +141,9 @@ class User implements UserInterface
     private ?string $registrationToken;
 
     /**
+     *
      * @ORM\Column(type="boolean")
+     * @Groups("post:read")
      */
     private ?bool $isVerified;
 
@@ -172,11 +179,13 @@ class User implements UserInterface
     private ?bool $isEnabled;
 
     /**
+     * @Groups("post:read")
      * @ORM\OneToMany (targetEntity="App\Entity\Game", mappedBy="user")
      */
     private $games;
 
     /**
+     * @Groups("post:read")
      * @ORM\ManyToMany(targetEntity="App\Entity\Game", mappedBy="joinedBy")
      */
     private $gamesJoined;
@@ -233,6 +242,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("post:read")
      */
     private $genre;
 
@@ -259,12 +269,13 @@ class User implements UserInterface
         $this->suppliersevents = new ArrayCollection();
         $this->productowner = new ArrayCollection();
         $this->fields = new ArrayCollection();
+        $this->Birthday=new \DateTimeImmutable('now');
     }
 
     /**
-     * @return ArrayCollection
+     * @return ArrayCollection|PersistentCollection
      */
-    public function getGameJoined(): ArrayCollection
+    public function getGameJoined()
     {
         return $this->gamesJoined;
     }
@@ -272,9 +283,9 @@ class User implements UserInterface
 
 
     /**
-     * @return ArrayCollection
+     * @return ArrayCollection|PersistentCollection
      */
-    public function getGames(): ArrayCollection
+    public function getGames()
     {
         return $this->games;
     }

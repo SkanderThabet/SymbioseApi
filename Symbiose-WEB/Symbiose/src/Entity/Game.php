@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\GameRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -36,6 +37,7 @@ class Game
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="games")
      * @ORM\JoinColumn()
+     * @Groups("post:read")
      */
     private $user;
 
@@ -45,6 +47,7 @@ class Game
      *     joinColumns={@ORM\JoinColumn(name="game_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
      * )
+     * @Groups("post:read")
      */
     private $joinedBy;
 

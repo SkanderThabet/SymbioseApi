@@ -79,11 +79,13 @@ class Event
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="supplierevents")
+     * @Groups("post:read")
      */
     private $Supplier;
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class)
+     * @Groups("post:read")
      */
     private $Participants;
 

@@ -32,6 +32,15 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function findByEmail($email) {
+        $db = $this->createQueryBuilder('user');
+
+        return $db->select('user')
+            ->where('user.Email LIKE :Email')
+            ->setParameter('Email', '%'.$email.'%')
+            ->getQuery()
+            ->getResult();
+    }
     public function findInactiveUsers($is_Verified){
         $db = $this->createQueryBuilder('user');
         return $db->select('user')
